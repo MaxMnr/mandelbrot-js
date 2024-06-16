@@ -3,51 +3,35 @@ let mouse;
 let slider;
 let returnButton;
 let resetButton;
+let can;
 
 function setup() {
-  let canvasDiv = document.getElementById("project-mandelbrot-animation");
+  let canvasDiv = document.getElementById("animation-both");
   let w = canvasDiv.offsetWidth;
   let h = canvasDiv.offsetHeight;
-  let can = createCanvas(int(w), int(w / 1.8));
+  can = createCanvas(int(w), int(w / 1.8));
+  can.parent("animation-canvas");
+  can.style("border-radius: 10pt");
+
   pixelDensity(1);
   mandelbrot = new Mandelbrot();
   mouse = new Mouse();
 
+  slider = new Slider(32, 256, 16, 16, "Maximum Iter:");
+
   returnButton = createButton("Return").mousePressed(returnB);
   resetButton = createButton("Reset").mousePressed(resetB);
-  slider = createSlider(32, 256, 16, 16);
-  iterText = createDiv("");
 
-  slider.style("order: 0;");
-  slider.style("order: 1;");
-  returnButton.style("order: 2;");
-  resetButton.style("order: 3;");
+  returnButton.parent("animation-widgets");
+  resetButton.parent("animation-widgets");
 
-  can.parent("project-mandelbrot-animation");
-  can.style("border-radius", "4pt");
-  returnButton.parent("project-mandelbrot-widgets");
-  resetButton.parent("project-mandelbrot-widgets");
-  slider.parent("project-mandelbrot-widgets");
-  iterText.parent("project-mandelbrot-widgets");
-
-  slider.addClass("slider");
-  resetButton.addClass("button");
-  returnButton.addClass("button");
-  iterText.addClass("text");
+  resetButton.addClass("button").style("width: 10%; height:50%");
+  returnButton.addClass("button").style("width: 10%; height:50%");
 }
 
 function draw() {
   background(0);
-
-  iterText.html(
-    '<span style="color: #fffffe;">' +
-      "Maximum Steps: " +
-      "</span>" +
-      '<span style="color: #7f5af0;">' +
-      str(slider.value()) +
-      "</span>"
-  );
-
+  slider.update();
   mandelbrot.plot();
   mouse.update();
   if (slider.value() != mandelbrot.maxstep) {
@@ -244,5 +228,30 @@ function mouseOnCanvas() {
 
 function windowResized() {
   //resizeCanvas(int(windowHeight * 0.8), int(windowHeight * 0.7));
+}
+
+class Slider {
+  constructor(min_, max_, start_, step_, label) {
+    this.label = label;
+    this.container = createDiv().class("slider-label").parent("animation-widgets");
+    this.slider = createSlider(min_, max_, start_, step_).parent(this.container).class("slider");
+
+    this.div = createDiv(label + str(this.slider.value()))
+      .parent(this.container)
+      .class("label");
+  }
+
+  update() {
+    this.div.html(this.label + str(this.slider.value()));
+  }
+
+  value() {
+    return round(this.slider.value(), 2);
+  }
+
+  setValue(val) {
+    this.slider.value(val);
+    this.div.html(this.label + str(val));
+  }
 }
 

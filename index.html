@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>Maxime Munari</title>
-    <link rel="stylesheet" href="https://maximemunari.fr/style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://maximemunari.fr/scripts/mathjax.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://maximemunari.fr/scripts/p5.min.js"></script>
     <link rel="icon" type="image/png" href="https://maximemunari.fr/images/logos/favicon.png" />
   </head>
@@ -32,41 +33,110 @@
     </header>
     <script src="https://maximemunari.fr/scripts/navbar.js"></script>
 
-    <section class="project-description">
-      <hr width="100%" size="2px" color="white" />
-      <hr width="100%" size="1px" color="white" />
-      <h1 class="project-title">Mandelbrot Set</h1>
-      <hr width="100%" size="1px" color="white" />
-      <hr width="100%" size="2px" color="white" />
-      </br></br></br></br>
+    <section class="project-section" id="project-description">
+      <hr class="hline-2" />
+      <hr class="hline-2" />
+      <h1>Mandelbrot Set</h1>
+      <hr class="hline-2" />
+      <hr class="hline-2" />
+
+      <h2>Definition</h2>
+      <p>
+        The Mandelbrot set, denoted by \(\mathcal{M}\), consists of a set of complex numbers \(c\) for which the
+        critical point \(z = 0\) of the polynomial \(P(z) = z^2 + c\) does not have an orbit that escapes to infinity.
+        In other words, the Mandelbrot set \(\mathcal{M}\) includes all points \(c \in \mathbb{C}\) where the following
+        sequence remains bounded:
+      </p>
+      <p>\[ \begin{cases} z_{n+1} = z_n^2 + c \\ z_0 = 0 \end{cases}, \hspace{0.2cm} z_n \in \mathbb{C} \]</p>
+      <p>
+        In practice, it can be shown that if \(|z_n| > 2\) for any \(n\), then the sequence \(\{z_n\}\) diverges to
+        infinity.
+      </p>
+      <p>
+        The Mandelbrot set is a fractal and exhibits an intricate and infinitely complex boundary when visualized. The
+        set itself is connected and contains numerous interesting features, such as self-similar structures and
+        minibrots (small copies of the Mandelbrot set).
+      </p>
+      <p>To summarize, the Mandelbrot set \(\mathcal{M}\) can be described as follows:</p>
+      <p>\[ \mathcal{M} := \{ c \in \mathbb{C} \mid \text{the sequence } \{z_n\} \text{ converges} \} \]</p>
+
+      <h2>Properties</h2>
+      <p>
+        The Mandelbrot set has several fascinating properties. It is a connected set, meaning there are no isolated
+        points. Each point in the set is part of the same continuous shape. Additionally, the boundary of the Mandelbrot
+        set is fractal and exhibits infinite complexity. No matter how much you zoom into the boundary, you will always
+        find more intricate details and self-similar patterns.
+      </p>
+      <p>
+        Another property is that the Mandelbrot set is symmetric with respect to the real axis. This means that if a
+        complex number \(c\) is in the Mandelbrot set, then its complex conjugate \(\overline{c}\) is also in the set.
+      </p>
+
+      <h2>Visualization</h2>
+      <p>
+        Visualizing the Mandelbrot set involves iterating the polynomial \(P(z) = z^2 + c\) for each point \(c\) in the
+        complex plane and determining whether the sequence remains bounded. Points that belong to the Mandelbrot set are
+        typically colored black, while points that do not belong to the set are colored based on how quickly the
+        sequence diverges to infinity.
+      </p>
+      <p>
+        The resulting images reveal the intricate and beautiful structure of the Mandelbrot set, with a large cardioid
+        shape in the center and various bulbs and spirals emanating from it. These visualizations often use color
+        gradients to highlight the speed of divergence, creating stunning and colorful fractal patterns.
+      </p>
+
+      <h2>Mathematical Significance</h2>
+      <p>
+        The Mandelbrot set is significant in the field of complex dynamics and fractal geometry. It serves as a
+        graphical representation of the behavior of quadratic polynomials and helps illustrate the concept of chaos in
+        dynamical systems. The study of the Mandelbrot set has led to many discoveries and advancements in mathematics,
+        particularly in understanding fractals and complex numbers.
+      </p>
+      <p>
+        The boundary of the Mandelbrot set is also of interest because it contains points that exhibit bifurcation,
+        where small changes in the parameter \(c\) lead to drastic changes in the behavior of the sequence. This makes
+        the Mandelbrot set a rich subject for research in mathematical bifurcation theory.
+      </p>
+      <h2>References</h2>
+      <ul>
+        <li style="list-style-type: none">
+          [1] "The Fractal Geometry of the Mandelbrot Set." Introduction to the Mandelbrot Set. Accessed June 15, 2024.
+          <a href="https://math.bu.edu/DYSYS/mandelbrot/MandelbrotSet.html" target="_blank"
+            >https://math.bu.edu/DYSYS/mandelbrot/MandelbrotSet.html</a
+          >
+        </li>
+        <li style="list-style-type: none">
+          [2] Wikipedia contributors. "Mandelbrot set." Wikipedia, The Free Encyclopedia. Accessed June 15, 2024.
+          <a href="https://en.wikipedia.org/wiki/Mandelbrot_set" target="_blank"
+            >https://en.wikipedia.org/wiki/Mandelbrot_set</a
+          >
+        </li>
+      </ul>
     </section>
 
-    <section class="project-animation">
-      <h1 class="project-subsection">Interactive Explorer</h1>
-      <h2 class="project-subsubsection">Explore the mandelbrot set on your own.</h2>
-      <ul class="project-instructions">
-        <li>Select a zone to zoom into it.</li>
-        <li>Change the number of iterations using the slider.</li>
-        <li>Return to the previous zoom level using the "Return" button</li>
-        <li>Reset to the default zoom level using the "Reset" button</li>
-      </ul>
-
-      <div class="embedding-screen">
-        <div class="embedding-head">
-          <div id="embedding-close-buttons">
-            <button class="embedding-button" id="embedding-button-1"></button>
-            <button class="embedding-button" id="embedding-button-2"></button>
-            <button class="embedding-button" id="embedding-button-3"></button>
+    <section class="project-section" id="project-animation">
+      <div id="animation-description">
+        <ul class="instructions-list">
+          <li>Select a zone to zoom into it.</li>
+          <li>Change the number of iterations using the slider.</li>
+          <li>Return to the previous zoom level using the "Return" button</li>
+          <li>Reset to the default zoom level using the "Reset" button</li>
+        </ul>
+      </div>
+      <div id="animation-embedding">
+        <div id="animation-title">
+          <div id="animation-title-threebuttons">
+            <button class="button"></button><button class="button"></button><button class="button"></button>
           </div>
-          <h1 id="embedding-title">mandelbrot.js</h1>
+          <b id="animation-title-filename">vicsek.js</b>
         </div>
-        <hr id="embedding-hr" />
-        <div class="embedding-body">
-          <div class="project-widgets" id="project-mandelbrot-widgets"></div>
-          <hr id="embedding-hr" />
-          <div class="project-animation" id="project-mandelbrot-animation"></div>
+        <hr class="hline" />
+        <div id="animation-both">
+          <div id="animation-widgets"></div>
+          <hr class="hline" />
+          <div id="animation-canvas"></div>
+          <script src="mandelbrot.js"></script>
         </div>
-        <script src="mandelbrot.js"></script>
       </div>
     </section>
 
